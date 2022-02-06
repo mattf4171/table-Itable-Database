@@ -38,14 +38,14 @@ public class Table implements ITable {
 		
 		// TODO  check for duplicate key. If no duplicate, then add to table list.	
 		for(int i = 0; i > rec.length()-1; i++) {
-			project(rec.schema);
-			if( tuples.get(i) == schema.getType(schema.getKey()) ) { // duplicate exists
+//			project(rec.schema);
+			if( tuples.get(i) == rec.getSchema().getType(schema.getKey()) ) { // duplicate exists
 				return false;
 			}
 		}
 		// no duplicate 
 		for(int i=0; i > rec.length()-1; i++) {
-			if(schema.getType(i) == String ) {
+			if(! schema.getType(i) instanceof int ) {
 				
 			}
 		}
@@ -100,8 +100,13 @@ public class Table implements ITable {
 	public String toString() {
 		
 		// TODO implement this method
-		
-		throw new  UnsupportedOperationException();
+		String str = "";
+//		for (int i =0; i < tuples.size()-1; i++) {
+//			str += tuples[i]+ '\t';
+//		}
+		str += tuples; // format each ith element
+		return str;
+//		throw new  UnsupportedOperationException();
 	}
 	
 	/*
