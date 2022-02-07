@@ -76,6 +76,17 @@ public class Table implements ITable {
 		// TODO implement this method
 		
 		throw new  UnsupportedOperationException();
+		
+//		System.out.println();
+//		for(int i = 0; i <= instructors.size()-1; i++) {
+//			if(instructors.get(i).getID() == ID) { // found the ID in the Instructor obj. 
+//				System.out.print("lookup "+ID+":");
+//				Instructor in = instructors.get(i);
+//				return new Instructor(in.getID(), in.getName(), in.getDept_name(), in.getSalary());
+//			}
+//		}
+//		System.out.print("lookup "+ID+": ");
+//		return null;
 
 	}
 
@@ -88,6 +99,17 @@ public class Table implements ITable {
 		// TODO implement this method
 		
 		throw new  UnsupportedOperationException();
+		
+//		System.out.println();
+//		for(int i = 0; i <= instructors.size()-1; i++) {
+//			if(instructors.get(i).getID() == ID) { // found the ID in the Instructor obj. 
+//				System.out.print("lookup "+ID+":");
+//				Instructor in = instructors.get(i);
+//				return new Instructor(in.getID(), in.getName(), in.getDept_name(), in.getSalary());
+//			}
+//		}
+//		System.out.print("lookup "+ID+": ");
+//		return null;
 
 	}
 
@@ -100,13 +122,16 @@ public class Table implements ITable {
 	public String toString() {
 		
 		// TODO implement this method
-		String str = "";
-//		for (int i =0; i < tuples.size()-1; i++) {
-//			str += tuples[i]+ '\t';
-//		}
-		str += tuples; // format each ith element
-		return str;
-//		throw new  UnsupportedOperationException();
+		if (schema.size() ==0) {
+			return "Empty Table";
+		} else {
+			StringBuilder sb = new StringBuilder();
+			for (tuples t : this) {
+				sb.append(t.toString());
+				sb.append("\n");
+			}
+			return sb.toString();
+		}
 	}
 	
 	/*

@@ -1,7 +1,7 @@
 Week 02
 Programmer: <Matthew Fernandez>
 Partner: <Yuki Okamoto>
-How much time did your spend reviewing your partern's code:  <nn minutes> 
+How much time did your spend reviewing your partern's code:  <00 minutes> 
 
 The following is repeated for each item brought up at the review.
 
