@@ -51,18 +51,16 @@ public class Table implements ITable {
 
 	@Override
 	public boolean delete(Object key) {
-		System.out.print("Deletion of "+key);
+		System.out.print("Deletion of key="+key);
 		if (schema.getKey() == null) {
 			throw new IllegalStateException("Error: table does not have a primary key.  Can not delete.");
 		}
 		
-		for(int i = 0; i <= schema.size(); i++) {
-			if(  key.equals(tuples.get(i).getKey()) ) { 
-				if(i == schema.size()) { // we can delete b/c it exists in the schema
-					tuples.remove(tuples.get(i)); // method to remove the desired element in array tuples
-					System.out.print(" Successful.\n");
-					return true;
-				}
+		for(Tuple t: tuples) {
+			if(  key.equals(t.getKey()) ) { 
+				tuples.remove(t); // method to remove the desired element in array tuples
+				System.out.print(" Successful.\n");
+				return true;
 			}
 		}
 		System.out.print(" Failed, key is not in table.\n");
@@ -71,28 +69,27 @@ public class Table implements ITable {
 
 
 	@Override
-	public Tuple lookup(Object key) {
+	public Tuple lookup(Object key) { // look up key in tuples,
 		System.out.print("\nLookup "+key);
 		if (schema.getKey() == null) {
 			throw new IllegalStateException("Error: table does not have a primary key.  Can not lookup by key.");
 		}
 
-		// TODO implement this method
-		Schema s = new Schema();
+//		Schema s = new Schema();
 		for(Tuple t: tuples) {
 			if(t.getKey().equals(key)) {
 				System.out.print(" Successful, found in table.\n");
 				return t;
 			}else if(t==tuples.get(tuples.size()-1)){
 				System.out.print(" Failed, not found in table.\n");
-
+				return null;
 			}
 		}
 		return null;
 	}
 
 	@Override
-	public ITable lookup(String colname, Object value) {
+	public ITable lookup(String colname, Object value) { // if colname and value are present in table, insert it into the ITable Obj
 		System.out.print("\nLookup "+colname+"="+value);
 		if (schema.getColumnIndex(colname) < 0) {
 			throw new IllegalStateException("Error: table does not contain column "+colname);
@@ -104,7 +101,6 @@ public class Table implements ITable {
 				System.out.print(" Successful, found in table.\n");
 			}else if(i==tuples.get(tuples.size()-1)){
 				System.out.print(" Failed, not found in table.\n");
-
 			}
 		}
 		return t;
