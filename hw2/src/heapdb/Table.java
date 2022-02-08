@@ -35,17 +35,13 @@ public class Table implements ITable {
 		if (! rec.getSchema().equals(schema)) {
 			throw new IllegalStateException("Error: tuple schema does not match table schema.");
 		}
-		Schema s = new Schema();
-		for(int i = 0; i <= rec.length(); i++) {
-			if( rec.getKey() == schema.getKey()) { // duplicate exists
+		for (Tuple t: tuples) {
+			if(t.getKey().equals(rec.getKey())) { // condition to check for duplicates
 				return false;
 			}
 		}
-		  s.addKeyIntType("ID");
-	      s.addVarCharType("name");
-	      s.addVarCharType("dept_name");
-	      s.addIntType("salary");
-	      return true;
+		tuples.add(rec); // no duplicate, than add to tuple array
+	    return true;
 	      
 		
 	}
@@ -96,7 +92,6 @@ public class Table implements ITable {
 		for(Tuple i: tuples) {
 			if(i.get(colname).equals(value)) {
 				t.insert(i);
-				return t;
 			}
 		}
 		return t;
