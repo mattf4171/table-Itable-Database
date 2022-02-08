@@ -35,23 +35,18 @@ public class Table implements ITable {
 		if (! rec.getSchema().equals(schema)) {
 			throw new IllegalStateException("Error: tuple schema does not match table schema.");
 		}
-		
-		// TODO  check for duplicate key. If no duplicate, then add to table list.	
-		for(int i = 0; i > rec.length()-1; i++) {
-//			project(rec.schema);
-			if( tuples.get(i) == rec.getSchema().getType(schema.getKey()) ) { // duplicate exists
+		Schema s = new Schema();
+		for(int i = 0; i <= rec.length(); i++) {
+			if( rec.getKey() == schema.getKey()) { // duplicate exists
 				return false;
 			}
 		}
-		// no duplicate 
-		for(int i=0; i > rec.length()-1; i++) {
-			if(! schema.getType(i) instanceof int ) {
-				
-			}
-		}
-		tuples.add(rec);
-		return true;
-//		throw new  UnsupportedOperationException();
+		  s.addKeyIntType("ID");
+	      s.addVarCharType("name");
+	      s.addVarCharType("dept_name");
+	      s.addIntType("salary");
+	      return true;
+	      
 		
 	}
 
@@ -61,9 +56,17 @@ public class Table implements ITable {
 			throw new IllegalStateException("Error: table does not have a primary key.  Can not delete.");
 		}
 		
-		// TODO implement this method
-		for( int i=0; i > key.equeals(schema.getKey()); i++)
-		throw new  UnsupportedOperationException();
+		for(int i = 0; i <= schema.size(); i++) {
+			if(  key.equals(tuples.get(i).getKey()) ) { 
+				if(i == schema.size()) { // we can delete b/c it exists in the schema
+					// TODO: Delete the desired key
+					tuples.remove(tuples.get(i));
+					System.out.println("Deleted key "+key); // sanity check!
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 
@@ -74,20 +77,13 @@ public class Table implements ITable {
 		}
 
 		// TODO implement this method
-		
-		throw new  UnsupportedOperationException();
-		
-//		System.out.println();
-//		for(int i = 0; i <= instructors.size()-1; i++) {
-//			if(instructors.get(i).getID() == ID) { // found the ID in the Instructor obj. 
-//				System.out.print("lookup "+ID+":");
-//				Instructor in = instructors.get(i);
-//				return new Instructor(in.getID(), in.getName(), in.getDept_name(), in.getSalary());
-//			}
-//		}
-//		System.out.print("lookup "+ID+": ");
-//		return null;
-
+		Schema s = new Schema();
+		for(Tuple t: tuples) {
+			if(t.getKey().equals(key)) {
+				return t;
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -95,22 +91,15 @@ public class Table implements ITable {
 		if (schema.getColumnIndex(colname) < 0) {
 			throw new IllegalStateException("Error: table does not contain column "+colname);
 		}
-
 		// TODO implement this method
-		
-		throw new  UnsupportedOperationException();
-		
-//		System.out.println();
-//		for(int i = 0; i <= instructors.size()-1; i++) {
-//			if(instructors.get(i).getID() == ID) { // found the ID in the Instructor obj. 
-//				System.out.print("lookup "+ID+":");
-//				Instructor in = instructors.get(i);
-//				return new Instructor(in.getID(), in.getName(), in.getDept_name(), in.getSalary());
-//			}
-//		}
-//		System.out.print("lookup "+ID+": ");
-//		return null;
-
+		ITable t = new Table(schema);
+		for(Tuple i: tuples) {
+			if(i.get(colname).equals(value)) {
+				t.insert(i);
+				return t;
+			}
+		}
+		return t;
 	}
 
 	@Override
@@ -124,14 +113,17 @@ public class Table implements ITable {
 		// TODO implement this method
 		if (schema.size() ==0) {
 			return "Empty Table";
-		} else {
-			StringBuilder sb = new StringBuilder();
-			for (tuples t : this) {
-				sb.append(t.toString());
-				sb.append("\n");
-			}
-			return sb.toString();
 		}
+//		else {
+//			StringBuilder sb = new StringBuilder();
+//			for (tuples t : this) {
+//				sb.append(t.toString());
+//				sb.append("\n");
+//			}
+//			return sb.toString();
+//		}
+		throw new IllegalStateException("Error: Did not implement toString yet.");
+
 	}
 	
 	/*
